@@ -94,6 +94,7 @@ export class MetarComponent implements OnInit {
         //         this.airportIdentfierNameArrayCache.filter(e => e.name.indexOf(autoCompleteCompleteEvent.query.toUpperCase()) > -1)
         //     );
         this.restService.getAirportIdentfierNames2(autoCompleteCompleteEvent.query)
+            .pipe(debounceTime(300)) // delay 300 ms
             .subscribe(
                 {
                     next: (airportIdentfierNames: AirportIdentfierName[]) => {
