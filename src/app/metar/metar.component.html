@@ -1,0 +1,186 @@
+<p-tabView (onChange)="setPanelNumberSelected($event)">
+    <p-tabPanel header=" Latest">
+        <div class="grid">
+            <div class="col-1" style="margin-top: 0.3rem;">
+                <label for="stationIds">Station ID(s):</label>
+            </div>
+            <div class="col-6">
+                <p-autoComplete id="stationIds" [(ngModel)]="airportIdentfierNames"
+                    [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
+                    field="identifier" [multiple]="true">
+                    <ng-template let-airportIdentfierName pTemplate="item">
+                        {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
+                    </ng-template>
+                </p-autoComplete>
+                <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
+                    style="margin-left: 0.2rem;"
+                    [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
+
+            </div>
+
+            <div class="col-5">
+                <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
+                    [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
+                    [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="0">
+                </app-station-id-set> -->
+            </div>
+
+            <div class="col-1" style="margin-top: 0.3rem;">
+                <label for="numberOfObersvations">Latest:</label>
+            </div>
+            <div class="col-11">
+                <input type="text" pInputText id="numberOfObersvations" [(ngModel)]="numberOfObersvations"
+                    style="width: 3rem" pattern="^\d*$" required #obersvations="ngModel" />
+            </div>
+            <div class="col-1">
+                <button pButton type="button" icon="pi pi-plus" (click)="getMetars()" label="Get"
+                    [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || ! obersvations.valid"></button>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Date Range">
+        <div class=" grid">
+            <div class="col-1" style="margin-top: 0.3rem;">
+                <label for="stationIds">Station ID(s):</label>
+            </div>
+            <div class="col-6">
+                <p-autoComplete id="stationIds" [(ngModel)]="airportIdentfierNames"
+                    [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
+                    field="identifier" [multiple]="true">
+                    <ng-template let-airportIdentfierName pTemplate="item">
+                        {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
+                    </ng-template>
+                </p-autoComplete>
+                <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
+                    style="margin-left: 0.2rem;"
+                    [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
+            </div>
+            <div class="col-5">
+                <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
+                    [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
+                    [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="1">
+                </app-station-id-set> -->
+            </div>
+            <div class="col-1" style="margin-top: 0.3rem;">
+                <label for="fromObservationTime">From date:</label>
+            </div>
+            <div class="col-2">
+                <p-calendar [(ngModel)]="fromObservationTime" name="fromObservationTime" id="fromObservationTime"
+                    #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
+                    [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
+                    [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
+                </p-calendar>
+            </div>
+            <div class="col-1" style="margin-top: 0.3rem;">
+                <label for="toObservationTime">To date:</label>
+            </div>
+            <div class="col-8">
+                <p-calendar [(ngModel)]="toObservationTime" name="toObservationTime" id="toObservationTime"
+                    #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
+                    [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
+                    [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
+                </p-calendar>
+            </div>
+            <div class="col-1">
+                <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
+                    [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || toObservationTime &lt; fromObservationTime"></button>
+            </div>
+        </div>
+
+    </p-tabPanel>
+</p-tabView>
+
+<div *ngIf="loadingFlag"><i class="blink-two">Retrieving data ...</i></div>
+<div style="margin-top: 0.5rem;">
+    <p-table *ngIf="metarArray?.length" [value]="metarArray" [scrollable]="true" scrollHeight="24rem"
+        [style]="{width:'90rem'}">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <!-- station -->
+                <col style="width:5rem">
+            </colgroup>
+            <colgroup>
+                <!-- observation -->
+                <col style="width:10rem">
+            </colgroup>
+            <colgroup>
+                <!-- auto -->
+                <col style="width:4rem">
+            </colgroup>
+            <colgroup>
+                <!-- wind -->
+                <col style="width:6rem">
+            </colgroup>
+            <colgroup>
+                <!-- vis -->
+                <col style="width:3rem">
+            </colgroup>
+            <colgroup>
+                <!-- wx -->
+                <col style="width:5rem">
+            </colgroup>
+            <colgroup>
+                <!-- sky condition -->
+                <col style="width:15rem">
+            </colgroup>
+            <colgroup>
+                <!-- tmp/dew -->
+                <col style="width:4rem">
+            </colgroup>
+            <colgroup>
+                <!-- alt -->
+                <col style="width:4rem">
+            </colgroup>
+            <colgroup>
+                <!-- remark -->
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Station</th>
+                <th>Time</th>
+                <th>Auto</th>
+                <th>Wind</th>
+                <th>Vis</th>
+                <th>WX</th>
+                <th>Sky Condition</th>
+                <th>T/D</th>
+                <th>Alt</th>
+                <th style="text-align:left">Remark</th>
+                <!-- <th>Metar</th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-metar>
+            <tr>
+                <td>{{ metar.stationId }}</td>
+                <td><span [pTooltip]="metar.rawText" tooltipStyleClass="observation-time-tooltip" tooltipPosition="top"
+                        style="border-bottom: 1px blue dashed">{{ metar.observationTime | date:"yyyy-MM-dd HH:mm"
+                        }}</span>
+                </td>
+                <td><span *ngIf="metar.auto">AUTO</span></td>
+                <td>{{ metar.windDirDegrees | windDirection }}/{{ metar.windSpeedKt }}<span
+                        *ngIf="metar.windGustKt">G</span>{{ metar.windGustKt }}</td>
+                <td>{{ metar.visibilityStatuteMi }}</td>
+                <td>{{ metar.wxString }}</td>
+                <td>
+                    <!-- <span *ngIf="metar.vertVisFt">VV{{ metar.vertVisFt }}</span>
+                    <span>{{ metar.skyCover1 }}</span>
+                    <span
+                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl1">{{ metar.cloudBaseFtAgl1 | cloudBase }}</span>
+                    <span
+                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl2">&nbsp;{{ metar.skyCover2 }}{{ metar.cloudBaseFtAgl2 | cloudBase }}</span>
+                    <span
+                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl3">&nbsp;{{ metar.skyCover3 }}{{ metar.cloudBaseFtAgl3 | cloudBase }}</span>
+                    <span
+                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl4">&nbsp;{{ metar.skyCover4 }}{{ metar.cloudBaseFtAgl4 | cloudBase }}</span> -->
+                    <span style="white-space: pre">{{metar | skyCondition}}</span>
+                </td>
+                <td>{{ metar.tempC }}/{{ metar.dewpointC }}</td>
+                <td>{{ metar.altimInHg | number:'2.2-2'}}</td>
+                <td>{{ metar.rawText | remark }}</td>
+                <!-- <td>{{ metar.rawText }}</td> -->
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
