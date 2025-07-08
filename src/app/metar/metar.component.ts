@@ -87,14 +87,12 @@ export class MetarComponent implements OnInit {
 
     searchAirports(autoCompleteCompleteEvent: AutoCompleteCompleteEvent /*{ originalEvent: InputEvent, query: string }*/) {
 
-        this.airportIdentfierNameResults = [];//new Array<MetarStationIdMv>();
+        this.airportIdentfierNameResults = [];
         console.log('autoCompleteCompleteEvent', autoCompleteCompleteEvent);
-        // this.airportIdentfierNameResults =
-        //     this.airportIdentfierNameArrayCache.filter(e => e.identifier.indexOf(autoCompleteCompleteEvent.query.toUpperCase()) > -1).concat(
-        //         this.airportIdentfierNameArrayCache.filter(e => e.name.indexOf(autoCompleteCompleteEvent.query.toUpperCase()) > -1)
-        //     );
+        if (autoCompleteCompleteEvent.query.length < 2) { // to limit the number returned
+            return
+        }
         this.restService.getAirportIdentfierNames2(autoCompleteCompleteEvent.query)
-            .pipe(debounceTime(300)) // delay 300 ms
             .subscribe(
                 {
                     next: (airportIdentfierNames: AirportIdentfierName[]) => {
