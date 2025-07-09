@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from 'primeng/api'
 import { MessageService, SelectItem } from 'primeng/api';
-import { debounceTime } from 'rxjs';
 import { RestService } from '../service/rest.service';
 import { AirportIdentfierName } from '../domain/AirportIdentfierName';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { SkyConditionPipe } from '../pipe/sky-condition-pipe';
 
 @Component({
     selector: 'app-metar',
-    imports: [CommonModule, TabViewModule, AutoCompleteModule, CalendarModule, FormsModule, ButtonModule, TableModule, TooltipModule,
+    imports: [CommonModule, SharedModule, TabViewModule, AutoCompleteModule, CalendarModule, FormsModule, ButtonModule, TableModule, TooltipModule,
         WindDirectionPipe, RemarkPipe, SkyConditionPipe],
     templateUrl: './metar.component.html',
     styleUrl: './metar.component.css'
@@ -169,7 +169,7 @@ export class MetarComponent implements OnInit {
         // }
     }
     clearMetarStationIdMvs() {
-        this.airportIdentfierNames.length = 0;
+        this.airportIdentfierNames = [];
     }
 
 }
