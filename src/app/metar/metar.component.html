@@ -8,7 +8,7 @@
             <div class="col-7">
                 <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
                     [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm" [style.padding-left]="'0'">
+                    field="identifier" class="p-inputtext-sm zero-left-padding">
                     <ng-template let-airportIdentfierName pTemplate="item">
                         {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
                     </ng-template>
@@ -53,7 +53,9 @@
             <div class="col-7">
                 <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
                     [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm" [style.padding-left]="'0'">
+                    field="identifier" class="p-inputtext-sm" field="identifier"
+                    class="p-inputtext-sm zero-left-padding">
+                    >
                     <ng-template let-airportIdentfierName pTemplate="item">
                         {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
                     </ng-template>

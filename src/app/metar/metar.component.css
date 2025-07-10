@@ -1,0 +1,7 @@
+.zero-left-padding {
+    padding-left: 0rem;
+}
+
+:host ::ng-deep .p-autocomplete input {
+    text-transform: uppercase;
+}
