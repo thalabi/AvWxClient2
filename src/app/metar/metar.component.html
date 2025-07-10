@@ -16,7 +16,6 @@
             </div>
             <div class="col-1">
                 <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
-                    style="margin-left: 0.2rem;"
                     [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
                 <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
                     [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
@@ -53,8 +52,7 @@
             <div class="col-7">
                 <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
                     [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm" field="identifier"
-                    class="p-inputtext-sm zero-left-padding">
+                    field="identifier" class="p-inputtext-sm zero-left-padding">
                     >
                     <ng-template let-airportIdentfierName pTemplate="item">
                         {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
@@ -63,7 +61,6 @@
             </div>
             <div class="col-1">
                 <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
-                    style="margin-left: 0.2rem;"
                     [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
                 <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
                     [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
