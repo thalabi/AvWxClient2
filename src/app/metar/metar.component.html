@@ -2,97 +2,105 @@
     <p-tabPanel header="Latest">
         <div class="grid">
             <!-- line 1 -->
-            <div class="col-1" style="margin-top: 0.3rem;">
+            <div class="col-2" style="margin-top: 0.3rem;">
                 <label for="stationIds">Station ID(s):</label>
             </div>
-            <div class="col-6">
+            <div class="col-7">
                 <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
                     [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm">
+                    field="identifier" class="p-inputtext-sm" [style.padding-left]="'0'">
                     <ng-template let-airportIdentfierName pTemplate="item">
                         {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
                     </ng-template>
                 </p-autocomplete>
+            </div>
+            <div class="col-1">
                 <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
                     style="margin-left: 0.2rem;"
                     [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
-            </div>
-            <div class="col-5">
                 <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
                     [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
                     [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="0">
                 </app-station-id-set> -->
             </div>
+            <div class="col-2">
+            </div>
 
             <!-- line 2 -->
-            <div class="col-1" style="margin-top: 0.3rem;">
+            <div class="col-2" style="margin-top: 0.3rem;">
                 <label for="numberOfObersvations">Latest:</label>
             </div>
-            <div class="col-11">
+            <div class="col-6">
                 <input type="text" pInputText id="numberOfObersvations" [(ngModel)]="numberOfObersvations"
                     style="width: 3rem" pattern="^\d*$" required #obersvations="ngModel" />
             </div>
+            <div class="col-4">
+            </div>
 
-            <!-- line 2 -->
+            <!-- line 3 -->
             <div class="col-1">
-                <button pButton type="button" icon="pi pi-plus" (click)="getMetars()" label="Get"
+                <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
                     [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || ! obersvations.valid"></button>
             </div>
         </div>
     </p-tabPanel>
     <p-tabPanel header="Date Range">
         <div class=" grid">
-            <div class="col-1" style="margin-top: 0.3rem;">
+            <!-- line 1 -->
+            <div class="col-2" style="margin-top: 0.3rem;">
                 <label for="stationIds">Station ID(s):</label>
             </div>
-            <div class="col-6">
-                <!-- <p-autoComplete id="stationIds" [(ngModel)]="airportIdentfierNames"
-                    [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" [multiple]="true">
-                    <ng-template let-airportIdentfierName pTemplate="item">
-                        {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
-                    </ng-template>
-                </p-autoComplete> -->
+            <div class="col-7">
                 <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
                     [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm">
+                    field="identifier" class="p-inputtext-sm" [style.padding-left]="'0'">
                     <ng-template let-airportIdentfierName pTemplate="item">
                         {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
                     </ng-template>
                 </p-autocomplete>
+            </div>
+            <div class="col-1">
                 <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
                     style="margin-left: 0.2rem;"
                     [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
-            </div>
-            <div class="col-5">
                 <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
                     [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
                     [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="1">
                 </app-station-id-set> -->
             </div>
-            <div class="col-1" style="margin-top: 0.3rem;">
+            <div class="col-2">
+            </div>
+
+            <!-- line 2 -->
+            <div class="col-2" style="margin-top: 0.3rem;">
                 <label for="fromObservationTime">From date:</label>
             </div>
-            <div class="col-2">
+            <div class="col-10">
                 <p-calendar [(ngModel)]="fromObservationTime" name="fromObservationTime" id="fromObservationTime"
                     #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
                     [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
                     [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
                 </p-calendar>
             </div>
-            <div class="col-1" style="margin-top: 0.3rem;">
+
+            <!-- line 3 -->
+            <div class="col-2" style="margin-top: 0.3rem;">
                 <label for="toObservationTime">To date:</label>
             </div>
-            <div class="col-8">
+            <div class="col-10">
                 <p-calendar [(ngModel)]="toObservationTime" name="toObservationTime" id="toObservationTime"
                     #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
                     [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
                     [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
                 </p-calendar>
             </div>
+
+            <!-- line 4 -->
             <div class="col-1">
                 <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
                     [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || toObservationTime &lt; fromObservationTime"></button>
+            </div>
+            <div class="col-5">
             </div>
         </div>
 
