@@ -1,108 +1,122 @@
-<p-tabView (onChange)="setPanelNumberSelected($event)">
+<p-tabView>
     <p-tabPanel header="Latest">
-        <div class="grid">
-            <!-- line 1 -->
-            <div class="col-2" style="margin-top: 0.3rem;">
-                <label for="stationIds">Station ID(s):</label>
-            </div>
-            <div class="col-7">
-                <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
-                    [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm zero-left-padding">
-                    <ng-template let-airportIdentfierName pTemplate="item">
-                        {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
-                    </ng-template>
-                </p-autocomplete>
-            </div>
-            <div class="col-1">
-                <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
-                    [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
-                <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
-                    [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
-                    [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="0">
-                </app-station-id-set> -->
-            </div>
-            <div class="col-2">
-            </div>
+        <form [formGroup]="latestObservationsForm" (ngSubmit)="onSubmitLatestObservationsForm()" novalidate>
 
-            <!-- line 2 -->
-            <div class="col-2" style="margin-top: 0.3rem;">
-                <label for="numberOfObersvations">Latest:</label>
-            </div>
-            <div class="col-6">
-                <input type="text" pInputText id="numberOfObersvations" [(ngModel)]="numberOfObersvations"
-                    style="width: 3rem" pattern="^\d*$" required #obersvations="ngModel" />
-            </div>
-            <div class="col-4">
-            </div>
+            <div class="grid">
 
-            <!-- line 3 -->
-            <div class="col-1">
-                <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
-                    [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || ! obersvations.valid"></button>
+                <div class="col-12">
+                    <app-station-id-set
+                        [airportIdentfierNames]="latestObservationsForm.value.airportIdentfierNameArray!"
+                        (airportIdentfierNamesChange)="onAirportIdentfierNamesChange($event)" (id)="0">
+                    </app-station-id-set>
+                </div>
+
+                <!-- line 1 -->
+                <div class="col-2" style="margin-top: 0.3rem;">
+                    <label for="stationIds">Station ID(s):</label>
+                </div>
+                <div class="col-7">
+                    <p-autocomplete inputId="identifier" formControlName="airportIdentfierNameArray" multiple
+                        [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
+                        field="identifier" class="p-inputtext-sm zero-left-padding">
+                        <ng-template let-airportIdentfierName pTemplate="item">
+                            {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
+                        </ng-template>
+                    </p-autocomplete>
+                    <!-- {{identifierArray}} -->
+                </div>
+                <div class="col-1">
+                    <button pButton type="button" icon="pi pi-minus"
+                        (click)="latestObservationsForm.controls.airportIdentfierNameArray.reset()" label="Clear"
+                        [disabled]="latestObservationsForm.controls.airportIdentfierNameArray.invalid"></button>
+                </div>
+                <div class="col-2">
+                </div>
+
+                <!-- line 2 -->
+                <div class="col-2" style="margin-top: 0.3rem;">
+                    <label for="numberOfObersvations">Latest:</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" pInputText id="numberOfObersvations" formControlName="numberOfObersvations"
+                        inputmode="numeric" pKeyFilter="num" pSize="small" style="width: 3rem" />
+                </div>
+                <div class="col-4">
+                </div>
+
+                <!-- line 3 -->
+                <div class="col-1">
+                    <button pButton type="submit" label="Get" [disabled]="latestObservationsForm.invalid"
+                        icon="pi pi-search"></button>
+                </div>
             </div>
-        </div>
+        </form>
+
     </p-tabPanel>
     <p-tabPanel header="Date Range">
-        <div class=" grid">
-            <!-- line 1 -->
-            <div class="col-2" style="margin-top: 0.3rem;">
-                <label for="stationIds">Station ID(s):</label>
-            </div>
-            <div class="col-7">
-                <p-autocomplete inputId="identifier" [(ngModel)]="airportIdentfierNames" multiple
-                    [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
-                    field="identifier" class="p-inputtext-sm zero-left-padding">
-                    >
-                    <ng-template let-airportIdentfierName pTemplate="item">
-                        {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
-                    </ng-template>
-                </p-autocomplete>
-            </div>
-            <div class="col-1">
-                <button pButton type="button" icon="pi pi-minus" (click)="clearMetarStationIdMvs()" label="Clear"
-                    [disabled]="!airportIdentfierNames || !airportIdentfierNames.length"></button>
-                <!-- <app-station-id-set [airportIdentfierNameArrayCache]=airportIdentfierNameArrayCache
-                    [(airportIdentfierNames)]="airportIdentfierNames" [(stationIdSetName)]="stationIdSetName"
-                    [(foundSavedStationIdSet)]="foundSavedStationIdSet" id="1">
-                </app-station-id-set> -->
-            </div>
-            <div class="col-2">
-            </div>
+        <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmitDateRangeForm()" novalidate>
 
-            <!-- line 2 -->
-            <div class="col-2" style="margin-top: 0.3rem;">
-                <label for="fromObservationTime">From date:</label>
-            </div>
-            <div class="col-10">
-                <p-calendar [(ngModel)]="fromObservationTime" name="fromObservationTime" id="fromObservationTime"
-                    #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
-                    [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
-                    [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
-                </p-calendar>
-            </div>
+            <div class=" grid">
+                <!-- line 1 -->
+                <div class="col-2" style="margin-top: 0.3rem;">
+                    <label for="stationIds">Station ID(s):</label>
+                </div>
+                <div class="col-7">
+                    <p-autocomplete inputId="identifier" formControlName="airportIdentfierNameArray" multiple
+                        [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
+                        field="identifier" class="p-inputtext-sm zero-left-padding">
+                        <ng-template let-airportIdentfierName pTemplate="item">
+                            {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
+                        </ng-template>
+                    </p-autocomplete>
 
-            <!-- line 3 -->
-            <div class="col-2" style="margin-top: 0.3rem;">
-                <label for="toObservationTime">To date:</label>
-            </div>
-            <div class="col-10">
-                <p-calendar [(ngModel)]="toObservationTime" name="toObservationTime" id="toObservationTime"
-                    #fromObservationTimeField="ngModel" [monthNavigator]="true" showButtonBar="true"
-                    [yearNavigator]="true" yearRange="2016:2050" [dateFormat]="'yy-mm-dd'" [showIcon]="true"
-                    [readonlyInput]="true" [showOnFocus]="false" [inputStyle]="{'width':'8rem'}">
-                </p-calendar>
-            </div>
 
-            <!-- line 4 -->
-            <div class="col-1">
-                <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
-                    [disabled]="! airportIdentfierNames || airportIdentfierNames.length == 0 || toObservationTime &lt; fromObservationTime"></button>
-            </div>
-            <div class="col-5">
-            </div>
-        </div>
+                </div>
+                <div class="col-1">
+                    <button pButton type="button" icon="pi pi-minus"
+                        (click)="dateRangeForm.controls.airportIdentfierNameArray.reset()" label="Clear"
+                        [disabled]="dateRangeForm.controls.airportIdentfierNameArray.invalid"></button>
+                </div>
+                <div class="col-2">
+                </div>
 
+                <!-- line 2 -->
+                <div class="col-2" style="margin-top: 0.3rem;">
+                    <label for="fromObservationTime">From date:</label>
+                </div>
+                <div class="col-10">
+                    <p-datepicker formControlName="fromObservationTime" name="fromObservationTime"
+                        id="fromObservationTime" dateFormat="yy-mm-dd" showIcon="true" showOnFocus="false"
+                        [inputStyle]="{'width':'8rem'}" [minDate]="JanFirst2016">
+                    </p-datepicker>
+                </div>
+
+                <!-- line 3 -->
+                <div class="col-2" style="margin-top: 0.3rem;">
+                    <label for="toObservationTime">To date:</label>
+                </div>
+                <div class="col-10">
+                    <p-datepicker formControlName="toObservationTime" name="toObservationTime" id="toObservationTime"
+                        dateFormat="yy-mm-dd" showIcon="true" showOnFocus="false" [inputStyle]="{'width':'8rem'}"
+                        [minDate]="JanFirst2016">
+                    </p-datepicker>
+                </div>
+
+                <!-- line 4 -->
+                <div class="col-1">
+                    <!-- <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
+                        [disabled]="! airportIdentfierNameArray || airportIdentfierNameArray.length == 0 || toObservationTime &lt; fromObservationTime"></button> -->
+                    <button pButton type="submit" label="Get"
+                        [disabled]="dateRangeForm.invalid || dateRangeForm.value.toObservationTime! &lt; dateRangeForm.value.fromObservationTime!"
+                        icon="pi pi-search"></button>
+                    <div class="col-1">
+                    </div>
+
+                </div>
+                <div class="col-5">
+                </div>
+            </div>
+        </form>
     </p-tabPanel>
 </p-tabView>
 

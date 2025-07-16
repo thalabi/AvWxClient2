@@ -1,1 +1,2 @@
-<button type="button" pButton icon="pi pi-plus" (click)="login()" label="Login"></button>
+<button *ngIf="!authenticated" type="button" pButton icon="pi pi-plus" (click)="login()" label="Login"></button>
+<button *ngIf="authenticated" type="button" pButton icon="pi pi-minus" (click)="logout()" label="Logout"></button>

@@ -1,0 +1,15 @@
+<!-- <p-toast class="custom-toast" position="top-center"></p-toast> -->
+
+<p-select [options]="setKeys" [(ngModel)]="selectedAirportSetName" editable="true" placeholder="Airport set name"
+    (onChange)="onChangeAirportSetName($event)" emptyMessage=" ">
+</p-select>
+
+{{selectedAirportSetName ? 'defined' : 'undefined'}}
+{{setFound ? 'setFound true' : 'setFound false'}}
+<button pButton type="button" icon="pi pi-plus" (click)="addAirportSet()" label="Add" style="margin-left: 0.2rem;"
+    [disabled]="!selectedAirportSetName || setFound"></button>
+{{!selectedAirportSetName && ! setFound ? 'disabled' : 'enabled'}}
+<button pButton type="button" icon="pi pi-check" (click)="modifyAirportSet()" label="Mod" style="margin-left: 0.2rem;"
+    [disabled]="!selectedAirportSetName || ! setFound"></button>
+<button pButton type="button" icon="pi pi-minus" (click)="deleteStationIdSet()" label="Del" style="margin-left: 0.2rem;"
+    [disabled]="!selectedAirportSetName || ! setFound"></button>
