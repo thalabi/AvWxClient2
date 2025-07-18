@@ -20,6 +20,9 @@ import { StationIdSetComponent } from '../station-id-set/station-id-set.componen
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { DatePickerModule } from 'primeng/datepicker';
+import { AuthService } from '../auth/auth.service';
+import { concatMap, distinctUntilChanged } from 'rxjs';
+import { StationIdSets } from '../domain/StationIdSets';
 
 @Component({
     selector: 'app-metar',
@@ -34,30 +37,18 @@ export class MetarComponent implements OnInit {
 
     airportIdentfierNameResults!: Array<AirportIdentfierName>;
 
-    // fromObservationTime!: Date;
-    // toObservationTime!: Date;
-
-    //numberOfObersvations!: number;
-
     loadingFlag!: boolean;
 
     foundIdentifierSet!: SelectItem[];
-    //stationIdSetName!: string;
-    // identifierSetName!: string;
-
-    // foundSavedStationIdSet!: boolean;
-
-    // savedStationIdSets: Array<StationIdSet>;
 
     userDetails: User = {} as User;
     loginButtonLabel!: string;
 
-    readonly JanFirst2016: Date = new Date(2016, 0, 1, 0, 0, 0, 0) // Jan 1, 2016
-    // @ViewChildren(StationIdSetComponent) stationIdSetComponentReferences: QueryList<StationIdSetComponent>;
+    username!: string
+    stationIdSets!: StationIdSets[];
 
-    // @ViewChild(LoginPanelComponent) loginPanelComponent: LoginPanelComponent;
-    // nob = new FormControl<AirportIdentfierName[] | null>(null, Validators.required)
-    // identifierArray: string[] = []
+    readonly JanFirst2016: Date = new Date(2016, 0, 1, 0, 0, 0, 0) // Jan 1, 2016
+
     latestObservationsForm = new FormGroup({
         airportIdentfierNameArray: new FormControl<AirportIdentfierName[] | null>(null, Validators.required),
         numberOfObersvations: new FormControl<number | null>(null, Validators.required),
@@ -71,12 +62,35 @@ export class MetarComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private restService: RestService,
+        private authService: AuthService,
     ) {
         // this.valueChangesAirportIdentfierNameArray()
     }
 
     ngOnInit() {
         this.messageService.clear()
+        // this.authService.getUserInfo().pipe(
+        //     concatMap(userInfo => {
+        //         console.log('userInfo', userInfo)
+        //         this.username = userInfo.username
+        //         return this.restService.getStationIdSets(this.username)
+        //     })
+        // ).subscribe({
+        //     next: (stationIdSets: StationIdSets[]) => {
+        //         this.stationIdSets = stationIdSets
+        //     },
+        //     complete: () => {
+        //         console.log('getUserInfo() & getStationIdSets(this.username) copleted')
+        //     },
+        //     error: (httpErrorResponse: HttpErrorResponse) => {
+        //         console.log('httpErrorResponse', httpErrorResponse)
+        //     }
+        // })
+        this.authService.getUserInfo()
+            .subscribe(userInfo => {
+                console.log('userInfo', userInfo)
+                this.username = userInfo.username
+            })
     }
 
     // valueChangesAirportIdentfierNameArray() {
