@@ -51,7 +51,7 @@ export class MetarComponent implements OnInit {
 
     latestObservationsForm = new FormGroup({
         airportIdentfierNameArray: new FormControl<AirportIdentfierName[] | null>(null, Validators.required),
-        numberOfObersvations: new FormControl<number | null>(1, Validators.required),
+        numberOfObersvations: new FormControl<number>(1, Validators.required),
     })
     dateRangeForm = new FormGroup({
         airportIdentfierNameArray: new FormControl<AirportIdentfierName[] | null>(null, Validators.required),

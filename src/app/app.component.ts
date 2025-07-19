@@ -9,10 +9,11 @@ import { environment } from '../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { AppInfoService } from './service/appInfo.service';
 import { SessionService } from './service/session.service';
+import { MenuComponent } from './menu/menu.component';
 
 @Component({
     selector: 'app-root',
-    imports: [MessagesModule, BackendStacktraceDisplayComponent, /*MenuComponent,*/ RouterOutlet, PopoverModule, SharedModule],
+    imports: [MessagesModule, BackendStacktraceDisplayComponent, MenuComponent, RouterOutlet, PopoverModule, SharedModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

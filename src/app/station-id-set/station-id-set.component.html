@@ -1,7 +1,5 @@
-<!-- <p-toast class="custom-toast" position="top-center"></p-toast> -->
-
 <p-select [options]="mapKeys" [(ngModel)]="selectedAirportSetName" editable="true" placeholder="Select or add set name"
-    (onChange)="onSelectAirportSetName($event)" emptyMessage=" ">
+    (onChange)="onSelectAirportSetName($event)" (onBlur)="onBlurAirportSetName()" emptyMessage=" ">
 </p-select>
 
 

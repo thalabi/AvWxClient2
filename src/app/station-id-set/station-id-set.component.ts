@@ -56,6 +56,7 @@ export class StationIdSetComponent implements OnInit {
     onSelectAirportSetName(event: SelectChangeEvent) {
         console.log('in onChangeAirportSetName');
         this.selectedAirportSetName = event.value
+        //this.selectedAirportSetName = this.selectedAirportSetName!.trim()
         console.log('this.selectedAirportSetName', this.selectedAirportSetName, 'this.selectedAirportSetName.length', this.selectedAirportSetName!.length)
         if (!this.selectedAirportSetName || this.selectedAirportSetName.length == 0) {
             this.setFound = false
@@ -72,6 +73,11 @@ export class StationIdSetComponent implements OnInit {
             this.setFound = false
         }
     }
+
+    onBlurAirportSetName() {
+        this.selectedAirportSetName = this.selectedAirportSetName!.toString().trim()
+    }
+
     addAirportSet() {
         console.log('in addAirportSet');
         console.log('this.airportIdentfierNamesControl.value', this.airportIdentfierNamesControl.value)

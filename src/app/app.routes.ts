@@ -9,11 +9,11 @@ import { MetarComponent } from './metar/metar.component';
 export const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
 
-    { path: 'test-login', component: TestLoginComponent },
+    // { path: 'test-login', component: TestLoginComponent },
 
-    { path: 'test-protected', component: TestProtectedComponent, canActivate: [AuthGuard] },
+    // { path: 'test-protected', component: TestProtectedComponent, canActivate: [AuthGuard] },
 
-    { path: 'metar', component: MetarComponent },
+    { path: 'metar', component: MetarComponent, canActivate: [AuthGuard] },
 
     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     { path: '**', component: Httpstatus404Component },
