@@ -69,23 +69,6 @@ export class MetarComponent implements OnInit {
 
     ngOnInit() {
         this.messageService.clear()
-        // this.authService.getUserInfo().pipe(
-        //     concatMap(userInfo => {
-        //         console.log('userInfo', userInfo)
-        //         this.username = userInfo.username
-        //         return this.restService.getStationIdSets(this.username)
-        //     })
-        // ).subscribe({
-        //     next: (stationIdSets: StationIdSets[]) => {
-        //         this.stationIdSets = stationIdSets
-        //     },
-        //     complete: () => {
-        //         console.log('getUserInfo() & getStationIdSets(this.username) copleted')
-        //     },
-        //     error: (httpErrorResponse: HttpErrorResponse) => {
-        //         console.log('httpErrorResponse', httpErrorResponse)
-        //     }
-        // })
         this.authService.getUserInfo()
             .subscribe(userInfo => {
                 console.log('userInfo', userInfo)

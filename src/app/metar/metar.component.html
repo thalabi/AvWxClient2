@@ -4,18 +4,19 @@
 
             <div class="grid">
 
-                <div *ngIf="username" class="col-12">
+                <!-- line 1 -->
+                <div class="col-12">
                     <app-station-id-set [username]="username"
                         [airportIdentfierNamesControl]="latestObservationsForm.controls.airportIdentfierNameArray"
                         (id)="0">
                     </app-station-id-set>
                 </div>
 
-                <!-- line 1 -->
+                <!-- line 2 -->
                 <div class="col-2" style="margin-top: 0.3rem;">
                     <label for="stationIds">Station ID(s):</label>
                 </div>
-                <div class="col-7">
+                <div class="col-8">
                     <p-autocomplete inputId="identifier" formControlName="airportIdentfierNameArray" multiple
                         [suggestions]="airportIdentfierNameResults" (completeMethod)="searchAirports($event)"
                         field="identifier" class="p-inputtext-sm zero-left-padding">
@@ -24,8 +25,8 @@
                         </ng-template>
                     </p-autocomplete>
                     <!-- {{identifierArray}} -->
-                </div>
-                <div class="col-1">
+                    <!-- </div>
+                <div class="col-1"> -->
                     <button pButton type="button" icon="pi pi-minus"
                         (click)="latestObservationsForm.controls.airportIdentfierNameArray.reset()" label="Clear"
                         [disabled]="latestObservationsForm.controls.airportIdentfierNameArray.invalid"></button>
@@ -33,7 +34,7 @@
                 <div class="col-2">
                 </div>
 
-                <!-- line 2 -->
+                <!-- line 3 -->
                 <div class="col-2" style="margin-top: 0.3rem;">
                     <label for="numberOfObersvations">Latest:</label>
                 </div>
@@ -44,7 +45,7 @@
                 <div class="col-4">
                 </div>
 
-                <!-- line 3 -->
+                <!-- line 4 -->
                 <div class="col-1">
                     <button pButton type="submit" label="Get" [disabled]="latestObservationsForm.invalid"
                         icon="pi pi-search"></button>
@@ -57,7 +58,15 @@
         <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmitDateRangeForm()" novalidate>
 
             <div class=" grid">
+
                 <!-- line 1 -->
+                <div class="col-12">
+                    <app-station-id-set [username]="username"
+                        [airportIdentfierNamesControl]="dateRangeForm.controls.airportIdentfierNameArray" (id)="0">
+                    </app-station-id-set>
+                </div>
+
+                <!-- line 2 -->
                 <div class="col-2" style="margin-top: 0.3rem;">
                     <label for="stationIds">Station ID(s):</label>
                 </div>
@@ -69,10 +78,8 @@
                             {{airportIdentfierName.identifier}} - {{airportIdentfierName.name}}
                         </ng-template>
                     </p-autocomplete>
-
-
-                </div>
-                <div class="col-1">
+                    <!-- </div>
+                <div class="col-1"> -->
                     <button pButton type="button" icon="pi pi-minus"
                         (click)="dateRangeForm.controls.airportIdentfierNameArray.reset()" label="Clear"
                         [disabled]="dateRangeForm.controls.airportIdentfierNameArray.invalid"></button>
@@ -80,7 +87,7 @@
                 <div class="col-2">
                 </div>
 
-                <!-- line 2 -->
+                <!-- line 3 -->
                 <div class="col-2" style="margin-top: 0.3rem;">
                     <label for="fromObservationTime">From date:</label>
                 </div>
@@ -91,7 +98,7 @@
                     </p-datepicker>
                 </div>
 
-                <!-- line 3 -->
+                <!-- line 4 -->
                 <div class="col-2" style="margin-top: 0.3rem;">
                     <label for="toObservationTime">To date:</label>
                 </div>
@@ -102,10 +109,8 @@
                     </p-datepicker>
                 </div>
 
-                <!-- line 4 -->
+                <!-- line 5 -->
                 <div class="col-1">
-                    <!-- <button pButton type="button" icon="pi pi-search" (click)="getMetars()" label="Get"
-                        [disabled]="! airportIdentfierNameArray || airportIdentfierNameArray.length == 0 || toObservationTime &lt; fromObservationTime"></button> -->
                     <button pButton type="submit" label="Get"
                         [disabled]="dateRangeForm.invalid || dateRangeForm.value.toObservationTime! &lt; dateRangeForm.value.fromObservationTime!"
                         icon="pi pi-search"></button>
