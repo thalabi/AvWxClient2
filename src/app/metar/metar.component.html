@@ -6,9 +6,8 @@
 
                 <!-- line 1 -->
                 <div class="col-12">
-                    <app-station-id-set [username]="username"
-                        [airportIdentfierNamesControl]="latestObservationsForm.controls.airportIdentfierNameArray"
-                        (id)="0">
+                    <app-station-id-set *ngIf="username" [username]="username"
+                        [airportIdentfierNamesControl]="latestObservationsForm.controls.airportIdentfierNameArray">
                     </app-station-id-set>
                 </div>
 
@@ -61,8 +60,8 @@
 
                 <!-- line 1 -->
                 <div class="col-12">
-                    <app-station-id-set [username]="username"
-                        [airportIdentfierNamesControl]="dateRangeForm.controls.airportIdentfierNameArray" (id)="0">
+                    <app-station-id-set *ngIf="username" [username]="username"
+                        [airportIdentfierNamesControl]="dateRangeForm.controls.airportIdentfierNameArray">
                     </app-station-id-set>
                 </div>
 

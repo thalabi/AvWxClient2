@@ -22,7 +22,7 @@ export class StationIdSetComponent implements OnInit {
     stationIdSetsUrl!: URL | null;
     // setKeys: string[] = []
 
-    @Input() id!: number
+    // @Input() id!: number
 
     @Input() username!: string
     // The value of airportIdentfierNamesControl is updated effectively making it a two-way binding parameter
@@ -36,7 +36,7 @@ export class StationIdSetComponent implements OnInit {
     constructor(private messageService: MessageService, private restService: RestService) { }
 
     ngOnInit(): void {
-        console.log('StationIdSetComponent id is', this.id)
+        // console.log('StationIdSetComponent id is', this.id)
         this.getNameToStationIdSetsMap()
     }
     getNameToStationIdSetsMap() {
@@ -75,7 +75,9 @@ export class StationIdSetComponent implements OnInit {
     }
 
     onBlurAirportSetName() {
-        this.selectedAirportSetName = this.selectedAirportSetName!.toString().trim()
+        if (this.selectedAirportSetName) {
+            this.selectedAirportSetName = this.selectedAirportSetName!.toString().trim()
+        }
     }
 
     addAirportSet() {
