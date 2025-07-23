@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api'
 import { MessageService, SelectItem } from 'primeng/api';
 import { RestService } from '../service/rest.service';
 import { AirportIdentfierName } from '../domain/AirportIdentfierName';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TabViewChangeEvent, TabViewModule } from 'primeng/tabview';
-import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -21,13 +20,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { DatePickerModule } from 'primeng/datepicker';
 import { AuthService } from '../auth/auth.service';
-import { concatMap, distinctUntilChanged } from 'rxjs';
+import { TabsModule } from 'primeng/tabs';
 import { StationIdSets } from '../domain/StationIdSets';
 
 @Component({
     selector: 'app-metar',
-    imports: [CommonModule, SharedModule, TabViewModule, InputTextModule, KeyFilterModule, AutoCompleteModule, DatePickerModule, ReactiveFormsModule, FormsModule, ButtonModule, TableModule, TooltipModule,
-        WindDirectionPipe, RemarkPipe, SkyConditionPipe, StationIdSetComponent],
+    imports: [CommonModule, SharedModule, InputTextModule, KeyFilterModule, AutoCompleteModule, DatePickerModule, ReactiveFormsModule, FormsModule, ButtonModule, TableModule, TooltipModule,
+        WindDirectionPipe, RemarkPipe, SkyConditionPipe, StationIdSetComponent, TabsModule],
     templateUrl: './metar.component.html',
     styleUrl: './metar.component.css'
 })
@@ -38,6 +37,7 @@ export class MetarComponent implements OnInit {
     airportIdentfierNameResults!: Array<AirportIdentfierName>;
 
     loadingFlag!: boolean;
+    tabNumber: number = 1;
 
     foundIdentifierSet!: SelectItem[];
 

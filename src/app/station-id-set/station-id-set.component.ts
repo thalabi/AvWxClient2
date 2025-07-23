@@ -36,7 +36,7 @@ export class StationIdSetComponent implements OnInit {
     constructor(private messageService: MessageService, private restService: RestService) { }
 
     ngOnInit(): void {
-        // console.log('StationIdSetComponent id is', this.id)
+        console.log('StationIdSetComponent ngOnInit()')
         this.getNameToStationIdSetsMap()
     }
     getNameToStationIdSetsMap() {
