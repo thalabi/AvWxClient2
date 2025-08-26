@@ -10,7 +10,7 @@ export class SkyConditionPipe implements PipeTransform {
         if (metar.vertVisFt || metar.skyCover1 == 'OVX') {
             skyCondition = "VV" + metar.vertVisFt;
         } else {
-            if (metar.skyCover1 == "CLR") {
+            if (metar.skyCover1 == "CLR" || metar.skyCover1 == "SKC") {
                 skyCondition = metar.skyCover1;
             } else {
                 skyCondition = metar.skyCover1 + this.formatCloadBase(metar.cloudBaseFtAgl1);

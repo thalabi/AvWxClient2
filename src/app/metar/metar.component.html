@@ -200,7 +200,7 @@
                 <td>{{ metar.windDirDegrees | windDirection }}/{{ metar.windSpeedKt }}<span
                         *ngIf="metar.windGustKt">G</span>{{ metar.windGustKt }}</td>
                 <td>{{ metar.visibilityStatuteMi }}</td>
-                <td>{{ metar.wxString }}</td>
+                <td style="white-space: nowrap;">{{ metar.wxString }}</td>
                 <td>
                     <!-- <span *ngIf="metar.vertVisFt">VV{{ metar.vertVisFt }}</span>
                     <span>{{ metar.skyCover1 }}</span>
