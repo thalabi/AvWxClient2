@@ -22,10 +22,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { AuthService } from '../auth/auth.service';
 import { TabsModule } from 'primeng/tabs';
 import { StationIdSets } from '../domain/StationIdSets';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     selector: 'app-metar',
-    imports: [CommonModule, SharedModule, InputTextModule, KeyFilterModule, AutoCompleteModule, DatePickerModule, ReactiveFormsModule, FormsModule, ButtonModule, TableModule, TooltipModule,
+    imports: [CommonModule, SharedModule, InputTextModule, InputNumberModule, KeyFilterModule, AutoCompleteModule, DatePickerModule, ReactiveFormsModule, FormsModule, ButtonModule, TableModule, TooltipModule,
         WindDirectionPipe, RemarkPipe, SkyConditionPipe, StationIdSetComponent, TabsModule],
     templateUrl: './metar.component.html',
     styleUrl: './metar.component.css'

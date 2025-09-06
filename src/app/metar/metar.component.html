@@ -41,8 +41,11 @@
                         <label for="numberOfObersvations">Latest:</label>
                     </div>
                     <div class="col-6">
-                        <input type="text" pInputText id="numberOfObersvations" formControlName="numberOfObersvations"
-                            inputmode="numeric" pKeyFilter="num" pSize="small" style="width: 3rem" />
+                        <!-- <input type="text" pInputText id="numberOfObersvations" formControlName="numberOfObersvations"
+                            inputmode="numeric" pKeyFilter="num" pSize="small" style="width: 3rem" /> -->
+
+                        <p-inputnumber id="numberOfObersvations" formControlName="numberOfObersvations"
+                            [showButtons]="true" pSize="small" [inputStyle]="{ width: '4.5rem' }" />
                     </div>
                     <div class="col-4">
                     </div>
@@ -202,16 +205,6 @@
                 <td>{{ metar.visibilityStatuteMi }}</td>
                 <td style="white-space: nowrap;">{{ metar.wxString }}</td>
                 <td>
-                    <!-- <span *ngIf="metar.vertVisFt">VV{{ metar.vertVisFt }}</span>
-                    <span>{{ metar.skyCover1 }}</span>
-                    <span
-                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl1">{{ metar.cloudBaseFtAgl1 | cloudBase }}</span>
-                    <span
-                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl2">&nbsp;{{ metar.skyCover2 }}{{ metar.cloudBaseFtAgl2 | cloudBase }}</span>
-                    <span
-                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl3">&nbsp;{{ metar.skyCover3 }}{{ metar.cloudBaseFtAgl3 | cloudBase }}</span>
-                    <span
-                        *ngIf="!metar.vertVisFt && metar.cloudBaseFtAgl4">&nbsp;{{ metar.skyCover4 }}{{ metar.cloudBaseFtAgl4 | cloudBase }}</span> -->
                     <span style="white-space: pre">{{metar | skyCondition}}</span>
                 </td>
                 <td>{{ metar.tempC }}/{{ metar.dewpointC }}</td>
